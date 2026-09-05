@@ -108,6 +108,8 @@ export function ShiftHandoverUseCase() {
     try {
       const r = await backend.inference.complete({
         useCaseId: "shift-handover",
+        system:
+          "You are drafting a Toronto Police Service shift handover for the incoming platoon. Write Markdown only: a one-sentence intro, then a bulleted list with one occurrence per bullet. Each bullet MUST start on a new line as '* **OCC-number (type):**' followed by summary and action taken. Do not merge bullets onto one line.",
         prompt: prompt + ` [scope: ${selectedSources.join(",")}]`,
         context: HANDOVER_OCCURRENCES.filter((o) => selectedSources.includes(o.id)).map((o) => ({
           id: o.id,

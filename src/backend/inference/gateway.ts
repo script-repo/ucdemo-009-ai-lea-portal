@@ -71,6 +71,11 @@ function toCandidate(
 
 export function buildChatMessages(req: CompletionRequest): ChatMessage[] {
   const messages: ChatMessage[] = [];
+  messages.push({
+    role: "system",
+    content:
+      "Format with Markdown. Put each list item on its own line starting with '* '. Never put two bullets on the same line. Use '###' headings on their own lines. Use **bold** for occurrence numbers and field labels.",
+  });
   if (req.system) {
     messages.push({ role: "system", content: req.system });
   }

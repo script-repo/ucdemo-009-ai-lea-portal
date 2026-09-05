@@ -1,4 +1,6 @@
-/* Markdown inside AIResponseCard — tokens only, no colour literals. */
+/* Markdown inside AIResponseCard.
+   The design-system reset sets ul/ol { list-style: none; padding: 0 }.
+   Restore readable lists here only. Tokens, no colour literals. */
 
 .ai-md {
   font-size: inherit;
@@ -31,11 +33,21 @@
 .ai-md ul,
 .ai-md ol {
   margin: 0 0 10px;
-  padding-left: 1.4em;
+  padding-left: 1.5em;
+}
+
+.ai-md ul {
+  list-style: disc;
+}
+
+.ai-md ol {
+  list-style: decimal;
 }
 
 .ai-md li {
-  margin: 0 0 4px;
+  margin: 0 0 8px;
+  display: list-item;
+  list-style: inherit;
 }
 
 .ai-md li > p {
