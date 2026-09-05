@@ -12,7 +12,7 @@ import type { CompletionRequest, CompletionResult } from "../types";
 import {
   isProviderReady,
   loadInferenceSettings,
-  normalizeBaseUrl,
+  resolveProviderUrl,
   type InferenceProviderId,
   type ProviderSettings,
 } from "./settings";
@@ -62,7 +62,7 @@ function toCandidate(
   return {
     id,
     label,
-    url: `${normalizeBaseUrl(provider.baseUrl)}/chat/completions`,
+    url: resolveProviderUrl(provider.baseUrl, "/chat/completions"),
     apiKey: provider.apiKey.trim(),
     model: provider.model.trim(),
     extraHeaders,

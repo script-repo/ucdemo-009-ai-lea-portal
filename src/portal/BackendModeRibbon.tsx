@@ -34,9 +34,9 @@ export function BackendModeRibbon() {
       >
         <Icon name="shield" size={12} />
         <span>
-          Backend: <Badge variant="ok">Real</Badge> — completions use
-          Nutanix Enterprise AI, then OpenRouter. Configure keys on{" "}
-          <strong>Resources</strong>.
+          Backend: <Badge variant="ok">Real</Badge> — chat uses Nutanix
+          Enterprise AI, then OpenRouter. Case data, ASR, vision, VMs, and
+          Kubernetes stay on fixtures unless those services are configured.
         </span>
       </div>
     );

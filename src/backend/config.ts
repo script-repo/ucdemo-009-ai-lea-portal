@@ -5,12 +5,13 @@
  * `simulated` implementation or proxied to the real Nutanix-hosted
  * services. Persisted to `localStorage` so refreshes survive.
  *
- * Pivot to real infra:
+ * Pivot to real inference:
  *   1. Save Nutanix Enterprise AI (and optional OpenRouter) settings
  *      on the Resources page. Keys stay in this browser.
  *   2. Flip the toggle in the portal's "Infrastructure" panel.
  *   3. Completions try Nutanix Enterprise AI first, then OpenRouter.
- *      Other services still read `VITE_AISP_*` URLs when configured.
+ *      Vector, relational, object, VM, and Kubernetes calls keep using
+ *      fixtures unless the matching `VITE_AISP_*` URL is set.
  */
 
 import type { BackendMode } from "./types";

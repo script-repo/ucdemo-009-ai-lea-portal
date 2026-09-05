@@ -92,12 +92,10 @@ export function InfrastructurePanel() {
         }
       >
         <p style={{ margin: "0 0 8px 0", fontSize: "var(--font-size-sm)" }}>
-          Every inference, vector lookup, relational query, object fetch, VM
-          status, and Kubernetes call from the portal flows through a single{" "}
-          <code>BackendClient</code>. Switching modes re-points that client at
-          either the in-browser fixtures (<strong>simulated</strong>) or the
-          real Nutanix-hosted services (<strong>real</strong>) without
-          reloading.
+          <strong>Real</strong> mode sends chat completions to Nutanix
+          Enterprise AI (then OpenRouter). Case files, 911 stats, RAG
+          indexes, VMs, and Kubernetes stay on in-browser fixtures unless
+          those endpoints are configured separately.
         </p>
         <p
           style={{
@@ -106,10 +104,10 @@ export function InfrastructurePanel() {
             color: "var(--aisp-text-muted)",
           }}
         >
-          Chat completions in real mode use keys saved on{" "}
+          Save keys on{" "}
           <a href="#/resources" style={{ color: "var(--aisp-link)" }}>Resources</a>
-          {" "}(Nutanix Enterprise AI first, OpenRouter fallback). Other
-          services still read <code>VITE_AISP_*</code> env vars at build time.
+          {" "}before switching. Test Connection must succeed and a model must
+          be selected.
         </p>
         {lastError && (
           <div

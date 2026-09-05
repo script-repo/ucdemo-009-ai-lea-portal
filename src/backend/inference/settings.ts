@@ -85,6 +85,27 @@ export function normalizeBaseUrl(url: string): string {
   return (url || "").trim().replace(/\/+$/, "");
 }
 
+/**
+ * Browser calls to NAI / OpenRouter go through a same-origin proxy
+ * (`/api/nai`, `/api/openrouter`) so the lab portal is not blocked by
+ * CORS. Custom base URLs are left as-is.
+ */
+export function resolveProviderUrl(baseUrl: string, path: string): string {
+  const normalized = normalizeBaseUrl(baseUrl);
+  const suffix = path.startsWith("/") ? path : `/${path}`;
+  let host = "";
+  try {
+    host = new URL(normalized).hostname;
+  } catch {
+    host = "";
+  }
+  if (host === "nai.hpoc.nutanix.com") return `/api/nai${suffix}`;
+  if (host === "openrouter.ai" || host === "www.openrouter.ai") {
+    return `/api/openrouter${suffix}`;
+  }
+  return `${normalized}${suffix}`;
+}
+
 export function loadInferenceSettings(): InferenceSettings {
   const base = defaultInferenceSettings();
   if (typeof window === "undefined") return base;
@@ -140,7 +161,7 @@ export async function testProvider(
   baseUrl: string,
   apiKey: string,
 ): Promise<{ ok: true; models: string[] } | { ok: false; error: string }> {
-  const url = `${normalizeBaseUrl(baseUrl)}/models`;
+  const url = resolveProviderUrl(baseUrl, "/models");
   const headers: Record<string, string> = { Accept: "application/json" };
   if (apiKey) headers.Authorization = `Bearer ${apiKey}`;
 

@@ -18,8 +18,8 @@
  */
 
 import { useEffect, useState } from "react";
-import { getBackendMode, subscribeBackendMode } from "./config";
-import type { BackendClient, BackendMode } from "./types";
+import { getBackendMode, getRealEndpoints, subscribeBackendMode } from "./config";
+import type { BackendClient, BackendMode, InferenceClient } from "./types";
 
 import { simulatedInference } from "./inference/simulated";
 import { realInference } from "./inference/real";
@@ -34,16 +34,29 @@ import { realVirtualization } from "./virtualization/real";
 import { simulatedKubernetes } from "./kubernetes/simulated";
 import { realKubernetes } from "./kubernetes/real";
 
+function hybridInference(): InferenceClient {
+  const extra = getRealEndpoints().inferenceBaseUrl;
+  return {
+    complete: (req) => realInference.complete(req),
+    embed: (req) => (extra ? realInference.embed(req) : simulatedInference.embed(req)),
+    transcribe: (req) =>
+      extra ? realInference.transcribe(req) : simulatedInference.transcribe(req),
+    redactVideo: (req) =>
+      extra ? realInference.redactVideo(req) : simulatedInference.redactVideo(req),
+  };
+}
+
 function buildClient(mode: BackendMode): BackendClient {
   if (mode === "real") {
+    const ep = getRealEndpoints();
     return {
       mode,
-      inference: realInference,
-      vector: realVector,
-      relational: realRelational,
-      objectStorage: realObjectStorage,
-      virtualization: realVirtualization,
-      kubernetes: realKubernetes,
+      inference: hybridInference(),
+      vector: ep.vectorBaseUrl ? realVector : simulatedVector,
+      relational: ep.relationalBaseUrl ? realRelational : simulatedRelational,
+      objectStorage: ep.objectStorageBaseUrl ? realObjectStorage : simulatedObjectStorage,
+      virtualization: ep.virtualizationBaseUrl ? realVirtualization : simulatedVirtualization,
+      kubernetes: ep.kubernetesBaseUrl ? realKubernetes : simulatedKubernetes,
     };
   }
   return {

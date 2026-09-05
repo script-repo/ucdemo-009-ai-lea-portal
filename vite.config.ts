@@ -38,5 +38,18 @@ export default defineConfig({
   server: {
     port: 5174,
     host: true,
+    proxy: {
+      "/api/nai": {
+        target: "https://nai.hpoc.nutanix.com",
+        changeOrigin: true,
+        secure: false,
+        rewrite: (p: string) => p.replace(/^\/api\/nai/, "/api/v1"),
+      },
+      "/api/openrouter": {
+        target: "https://openrouter.ai",
+        changeOrigin: true,
+        rewrite: (p: string) => p.replace(/^\/api\/openrouter/, "/api/v1"),
+      },
+    },
   },
 });
