@@ -1,0 +1,28 @@
+{
+  "name": "aisp-portal",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "AISP Portal — the application that hosts law-enforcement generative-AI use cases. Visual language is supplied by the aisp-design-system submodule at vendor/aisp-design-system (pinned, immutable).",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "ds:status": "git -C vendor/aisp-design-system describe --tags --always --dirty",
+    "ds:update": "git submodule update --remote vendor/aisp-design-system && git -C vendor/aisp-design-system status"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.16.10",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10"
+  }
+}

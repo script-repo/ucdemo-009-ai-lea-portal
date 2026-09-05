@@ -1,0 +1,305 @@
+/* AISP Design System — Primitives
+   Buttons, inputs, status dots, badges
+   Sections 9 (status), 10 (buttons), 14 (forms) of the spec */
+
+/* ── Buttons (10) ────────────────────────────────────────────────────────── */
+.btn {
+  height: 34px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: var(--border-radius-none);
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--font-ui);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.btn:disabled,
+.btn.is-disabled {
+  background: var(--aisp-btn-disabled);
+  color: #ffffff;
+  cursor: not-allowed;
+}
+
+.btn--sm {
+  height: 28px;
+  padding: 0 10px;
+  font-size: var(--font-size-sm);
+}
+
+.btn--lg {
+  height: 40px;
+  padding: 0 20px;
+  font-size: var(--font-size-base);
+}
+
+.btn--primary {
+  background: var(--aisp-btn-primary);
+  color: #ffffff;
+}
+
+.btn--primary:hover {
+  background: var(--aisp-btn-primary-hover);
+}
+
+.btn--dark {
+  background: var(--aisp-btn-dark);
+  color: #ffffff;
+}
+
+.btn--dark:hover {
+  background: var(--aisp-btn-dark-hover);
+}
+
+.btn--outline {
+  background: #ffffff;
+  color: var(--aisp-blue);
+  border: 1px solid var(--aisp-blue-light);
+}
+
+.btn--outline:hover {
+  background: var(--aisp-muted-bg);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--aisp-text);
+}
+
+.btn--ghost:hover {
+  background: var(--aisp-muted-bg);
+}
+
+.btn--ai {
+  background: var(--ai-accent);
+  color: #ffffff;
+}
+
+.btn--ai:hover {
+  background: var(--ai-accent-dark);
+}
+
+.btn--danger {
+  background: var(--aisp-status-error);
+  color: #ffffff;
+}
+
+/* ── Status dots (9) ─────────────────────────────────────────────────────── */
+.status-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: white;
+  flex: 0 0 auto;
+}
+
+.status-dot--ok {
+  background: var(--aisp-status-ok);
+}
+
+.status-dot--warning {
+  background: var(--aisp-status-warning);
+}
+
+.status-dot--error {
+  background: var(--aisp-status-error);
+}
+
+.status-dot--info {
+  background: var(--aisp-status-info);
+}
+
+.status-dot--muted {
+  background: var(--aisp-border-dark);
+}
+
+/* ── Badge ───────────────────────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 18px;
+  padding: 0 6px;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  line-height: 1;
+  border-radius: var(--border-radius-sm);
+  background: var(--aisp-section-bg);
+  color: var(--aisp-text);
+  border: 1px solid var(--aisp-border);
+  white-space: nowrap;
+}
+
+.badge--blue {
+  background: #e6f0fa;
+  border-color: #b6cbe3;
+  color: var(--aisp-link);
+}
+
+.badge--ok {
+  background: #e7f3df;
+  border-color: #b8d8a1;
+  color: #2e6d18;
+}
+
+.badge--warning {
+  background: #fbf2cc;
+  border-color: #e6c75a;
+  color: #7a5a00;
+}
+
+.badge--error {
+  background: var(--ai-draft-bg);
+  border-color: var(--ai-draft-border);
+  color: var(--ai-draft-text);
+}
+
+.badge--ai {
+  background: var(--ai-accent-soft);
+  border-color: var(--ai-accent-border);
+  color: var(--ai-accent-dark);
+}
+
+/* ── Form fields (14) ────────────────────────────────────────────────────── */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(140px, 1fr));
+  gap: 12px 18px;
+}
+
+.form-grid--2 {
+  grid-template-columns: repeat(2, minmax(140px, 1fr));
+}
+
+.form-grid--3 {
+  grid-template-columns: repeat(3, minmax(140px, 1fr));
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-field--span-2 {
+  grid-column: span 2;
+}
+
+.form-field--span-3 {
+  grid-column: span 3;
+}
+
+.form-field--span-full {
+  grid-column: 1 / -1;
+}
+
+.form-label {
+  font-size: var(--font-size-sm);
+  color: var(--aisp-text-muted);
+  font-weight: 400;
+}
+
+.form-label--required::after {
+  content: " *";
+  color: var(--aisp-status-error);
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  border: 1px solid var(--aisp-border);
+  background: #ffffff;
+  min-height: 30px;
+  padding: 5px 8px;
+  font-size: var(--font-size-md);
+  font-family: var(--font-ui);
+  color: var(--aisp-text);
+  border-radius: var(--border-radius-none);
+}
+
+.form-textarea {
+  min-height: 72px;
+  resize: vertical;
+  line-height: var(--line-normal);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: 1px solid var(--aisp-blue-light);
+  border-color: var(--aisp-blue-light);
+}
+
+.form-input:disabled,
+.form-select:disabled,
+.form-textarea:disabled {
+  background: var(--aisp-muted-bg);
+  color: var(--aisp-text-muted);
+}
+
+.form-help {
+  font-size: var(--font-size-xs);
+  color: var(--aisp-text-muted);
+}
+
+.form-error {
+  font-size: var(--font-size-xs);
+  color: var(--aisp-status-error);
+}
+
+/* Interaction states */
+.clickable {
+  cursor: pointer;
+}
+
+.clickable:hover {
+  background: var(--aisp-muted-bg);
+}
+
+.is-selected {
+  background: var(--aisp-blue-dark);
+  color: #ffffff;
+}
+
+.is-disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.validation-warning {
+  color: var(--aisp-status-warning);
+}
+
+.validation-error {
+  color: var(--aisp-status-error);
+}
+
+.validation-ok {
+  color: var(--aisp-status-ok);
+}
+
+/* Icon size utilities (18) */
+.icon-sm {
+  width: 14px;
+  height: 14px;
+}
+
+.icon-md {
+  width: 18px;
+  height: 18px;
+}
+
+.icon-lg {
+  width: 22px;
+  height: 22px;
+}

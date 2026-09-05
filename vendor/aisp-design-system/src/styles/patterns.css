@@ -1,0 +1,544 @@
+/* AISP Design System — Composite patterns
+   Sections 8, 9, 10, 11, 12, 15 of the spec */
+
+/* ── Section / accordion (9) ─────────────────────────────────────────────── */
+.section {
+  border: 1px solid var(--aisp-border);
+  margin-bottom: 12px;
+  background: #ffffff;
+}
+
+.section__header {
+  min-height: 38px;
+  background: var(--aisp-section-bg);
+  border-bottom: 1px solid var(--aisp-border);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 8px;
+}
+
+.section__title {
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  color: var(--aisp-text);
+}
+
+.section__count {
+  color: var(--aisp-text-muted);
+  font-weight: 400;
+}
+
+.section__meta {
+  margin-left: auto;
+  font-size: var(--font-size-sm);
+  color: var(--aisp-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section__body {
+  padding: 12px;
+  background: #ffffff;
+}
+
+.section__body--flush {
+  padding: 0;
+}
+
+/* Collapsible variant */
+.section--collapsible .section__header {
+  cursor: pointer;
+}
+
+.section--collapsed .section__body {
+  display: none;
+}
+
+/* ── Search strip (8.1) ──────────────────────────────────────────────────── */
+.search-strip {
+  display: grid;
+  grid-template-columns: 110px 1fr auto 44px;
+  height: 38px;
+  border: 1px solid var(--aisp-border);
+  background: #ffffff;
+  margin-bottom: 12px;
+}
+
+.search-strip__type {
+  border: 0;
+  border-right: 1px solid var(--aisp-border);
+  padding: 0 10px;
+  font-size: var(--font-size-sm);
+  color: var(--aisp-text);
+  background: #ffffff;
+}
+
+.search-strip__input {
+  border: 0;
+  padding: 0 12px;
+  font-size: var(--font-size-sm);
+  outline: none;
+}
+
+.search-strip__advanced {
+  align-self: center;
+  padding: 0 12px;
+  color: var(--aisp-link);
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+}
+
+.search-strip__button {
+  border: 0;
+  background: var(--aisp-btn-primary);
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-strip__button:hover {
+  background: var(--aisp-btn-primary-hover);
+}
+
+/* ── Active items list (11) ──────────────────────────────────────────────── */
+.list-header {
+  height: 42px;
+  background: var(--aisp-section-bg);
+  border: 1px solid var(--aisp-border);
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+}
+
+.list-header__title {
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+}
+
+.list-header__sort {
+  margin-left: auto;
+  font-size: var(--font-size-md);
+  color: var(--aisp-text);
+}
+
+.record-list {
+  border: 1px solid var(--aisp-border);
+  border-top: 0;
+}
+
+.record-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 44px 1fr 46px;
+  gap: 8px;
+  padding: 14px 8px;
+  border-bottom: 1px solid var(--aisp-border-soft);
+}
+
+.record-row:last-child {
+  border-bottom: 0;
+}
+
+.record-row:hover {
+  background: var(--aisp-muted-bg);
+}
+
+.record-row__icon {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.record-icon-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--aisp-border);
+  color: var(--aisp-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.record-row__body {
+  min-width: 0;
+}
+
+.record-row__role {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--aisp-text-muted);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.record-row__title {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--aisp-text);
+}
+
+.record-row__meta,
+.record-row__summary {
+  font-size: var(--font-size-md);
+  color: var(--aisp-text);
+  margin-top: 3px;
+}
+
+.record-row__summary {
+  color: var(--aisp-text-muted);
+}
+
+.record-row__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.record-row__chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.record-chevron-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--aisp-border);
+  color: #a1a7b1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: transparent;
+}
+
+.record-chevron-circle:hover {
+  background: var(--aisp-muted-bg);
+  color: var(--aisp-blue);
+}
+
+/* ── Person summary (12) ─────────────────────────────────────────────────── */
+.person-summary {
+  border: 1px solid var(--aisp-border);
+  margin-bottom: 12px;
+}
+
+.person-summary__body {
+  display: grid;
+  grid-template-columns: 1fr 150px;
+  min-height: 190px;
+}
+
+.person-details {
+  padding: 14px;
+}
+
+.person-section-title {
+  color: var(--aisp-blue);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.person-name-line {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.person-id-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 28px;
+  font-size: var(--font-size-md);
+  margin-top: 16px;
+}
+
+.person-photo-panel {
+  border-left: 1px solid var(--aisp-border-soft);
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+}
+
+.person-photo {
+  width: 100%;
+  aspect-ratio: 1 / 1.25;
+  object-fit: cover;
+  border: 1px solid var(--aisp-border);
+  background: #e8e8e8;
+}
+
+.photo-controls {
+  display: grid;
+  grid-template-columns: 42px 1fr 42px;
+  height: 40px;
+  align-items: center;
+  text-align: center;
+}
+
+.photo-controls button {
+  height: 40px;
+  border: 0;
+  background: var(--aisp-blue);
+  color: white;
+  cursor: pointer;
+}
+
+/* ── Quick links (15) ────────────────────────────────────────────────────── */
+.quick-links {
+  border: 1px solid var(--aisp-border);
+  margin-top: 12px;
+}
+
+.quick-link-row {
+  min-height: 42px;
+  display: grid;
+  grid-template-columns: 34px 1fr 28px;
+  align-items: center;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--aisp-border-soft);
+  cursor: pointer;
+  background: transparent;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  width: 100%;
+  text-align: left;
+  text-decoration: none;
+  color: inherit;
+}
+
+.quick-link-row:last-child {
+  border-bottom: 0;
+}
+
+.quick-link-row:hover {
+  background: var(--aisp-muted-bg);
+  text-decoration: none;
+}
+
+.quick-link-row__icon {
+  color: var(--aisp-charcoal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quick-link-row__text {
+  font-size: var(--font-size-base);
+  color: var(--aisp-text);
+}
+
+.quick-link-row__chevron {
+  color: #aab0ba;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Guided entry (10) ───────────────────────────────────────────────────── */
+.guided-section {
+  border: 1px solid var(--aisp-border);
+  margin-bottom: 14px;
+  background: #ffffff;
+}
+
+.guided-section__header {
+  height: 40px;
+  background: var(--aisp-section-bg);
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  border-bottom: 1px solid var(--aisp-border);
+  gap: 8px;
+}
+
+.guided-section__title {
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+}
+
+.guided-card {
+  position: relative;
+  padding: 14px 46px 14px 58px;
+  min-height: 72px;
+  background: #ffffff;
+}
+
+.guided-card__icon {
+  position: absolute;
+  left: 18px;
+  top: 20px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--aisp-border-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--aisp-blue);
+}
+
+.guided-card__edit {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  color: var(--aisp-blue);
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  padding: 4px;
+}
+
+.guided-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+/* ── Bottom actions ──────────────────────────────────────────────────────── */
+.bottom-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+/* ── Editor (13) ─────────────────────────────────────────────────────────── */
+.editor-shell {
+  padding: 18px;
+}
+
+.rich-toolbar {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid var(--aisp-border);
+  color: #4f5560;
+  padding: 0 4px;
+}
+
+.rich-toolbar button {
+  border: 0;
+  background: transparent;
+  height: 28px;
+  min-width: 24px;
+  font-weight: 600;
+  cursor: pointer;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rich-toolbar button:hover {
+  background: var(--aisp-muted-bg);
+}
+
+.note-editor {
+  min-height: 480px;
+  border: 1px solid var(--aisp-border-dark);
+  padding: 22px;
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  background: #ffffff;
+  outline: none;
+}
+
+.note-editor:focus {
+  border-color: var(--aisp-blue-light);
+}
+
+.note-editor h3 {
+  font-size: var(--font-size-base);
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+
+.note-editor p {
+  margin: 0 0 8px;
+}
+
+.editor-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* ── Task summary ────────────────────────────────────────────────────────── */
+.task-summary {
+  border: 1px solid var(--aisp-border);
+  margin-top: 14px;
+}
+
+.task-body {
+  padding: 12px;
+  font-size: var(--font-size-md);
+}
+
+/* ── Login (17) ──────────────────────────────────────────────────────────── */
+.login-page {
+  display: grid;
+  grid-template-columns: var(--aisp-icon-rail-width) 1fr;
+  height: 100vh;
+  background: #ffffff;
+}
+
+.login-header {
+  height: 28px;
+  background: var(--aisp-charcoal);
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font-size: var(--font-size-md);
+  font-weight: 600;
+}
+
+.login-form {
+  width: 220px;
+  margin: 14px 0 0 18px;
+}
+
+.login-field {
+  margin-bottom: 8px;
+}
+
+.login-field label {
+  display: block;
+  font-size: var(--font-size-xs);
+  margin-bottom: 3px;
+}
+
+.login-field input {
+  width: 100%;
+  height: 24px;
+  border: 1px solid var(--aisp-border-dark);
+  padding: 2px 5px;
+  font-size: var(--font-size-sm);
+}
+
+.login-button {
+  height: 26px;
+  padding: 0 12px;
+  background: var(--aisp-btn-primary);
+  color: white;
+  border: 0;
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+}

@@ -1,0 +1,97 @@
+# AISP Portal — Ralph Progress Tracking
+
+## Foundation
+
+### Completed
+- [x] `/resources` — Nutanix Enterprise AI primary + OpenRouter fallback (browser-local keys)
+- [x] GitOps overlay `deploy/gitops/db-project-009` + Flux sync + GHCR publish workflow
+- [x] Backend abstraction (`src/backend/`) — types, config, latency, 6 services × {sim, real}
+- [x] Domain fixtures — bodyCam, evidence, policies, interviews, network, calls911
+- [x] Infrastructure panel — `/infrastructure` route with mode toggle, VMs, K8s workloads
+- [x] Backend mode ribbon below the disclaimer in PortalShell
+- [x] CLAUDE.md (project context for agents)
+- [x] PROMPT.md (top-level PRD + stop conditions)
+- [x] sub-prompts/ for every use case
+- [x] Use-case registry updated with all 7 use cases (orchestrator)
+
+### Remaining
+- (none)
+
+---
+
+## Use cases
+
+### Completed
+- [x] shift-handover — refactored to backend; expanded fixture (5 occurrences, 8 notes, 3 tasks, radio log); collapsible occurrence rows, redaction reveal, status badges
+- [x] body-cam-report (UC1) — ASR + LLM + officer review of structured occurrence draft
+- [x] evidence-intel (UC2) — RAG over case-file exhibits with chain-of-custody view
+- [x] evidence-redaction (UC3/5) — vision pipeline + bbox overlay + reviewer gate; 2 scenario images
+- [x] multilingual-interview (UC4) — bilingual transcript + structured English statement
+- [x] link-analysis (UC6) — enhanced: ~25 entities, click-for-details, neighbour filter, kind toggles, BFS path-between, hover-to-highlight, 1100×680 canvas
+- [x] policy-chatbot (UC7) — pure RAG over TPS / Charter / Criminal Code / Ontario
+- [x] transcript-911 (UC8) — enhanced: ~300 calls, date-range filter, hour-of-day + day-of-week + division + interpreter charts, headline stat cards, row-click detail panel
+- [x] database-integration (UC9) — MCP federation across 7 upstreams (TPS / MTO / CPIC / OCJ / VS / ICES / Intel); plan + per-step tool calls + per-row provenance + synthesis
+- [x] document-redaction (UC10) — NER + classification across 5 doc types (witness statement, narrative, FOIA reply, medical disclosure, intel briefing); per-detection accept/reject; highlighted vs redacted preview
+
+### In Progress
+- (none)
+
+### Remaining
+- (none)
+
+---
+
+## Blockers
+
+(none)
+
+---
+
+## Files modified
+
+- `src/App.tsx` — added /infrastructure route
+- `src/portal/PortalShell.tsx` — added Infrastructure rail item, side panel, ribbon
+- `src/portal/InfrastructurePanel.tsx` — new operator inspector
+- `src/portal/BackendModeRibbon.tsx` — new persistent sim/real ribbon
+- `src/portal/useCases.ts` — registry expanded to all 7 use cases
+- `src/backend/**` — new abstraction layer (entire tree)
+- `src/backend/fixtures/calls911.ts` — curated 20 + procedurally-generated 280 (~300 calls, 30 days, weighted distributions)
+- `src/backend/fixtures/network.ts` — 25 entities, 30 edges, per-node attrs, edge date windows, 1100×680 layout
+- `src/backend/fixtures/shiftHandover.ts` — new: sources, occurrences, notes, tasks, radio, citations, narrative
+- `src/backend/inference/simulated.ts` — added "shift-handover" useCaseId path
+- `src/backend/index.ts` — exports for new fixture types
+- `src/use-cases/body-cam-report/` — UC1
+- `src/use-cases/evidence-intel/` — UC2
+- `src/use-cases/evidence-redaction/` — UC3/5
+- `src/use-cases/multilingual-interview/` — UC4
+- `src/use-cases/link-analysis/` — UC6 (rebuilt UI: filter, path-between, hover/click interactions)
+- `src/use-cases/policy-chatbot/` — UC7
+- `src/use-cases/transcript-911/` — UC8 (rebuilt UI: date range, multi-chart breakdowns, detail panel)
+- `src/use-cases/shift-handover/` — refactored to backend; richer UI
+- `src/use-cases/database-integration/` — UC9 (new): MCP federation, plan view, per-step result tables, server inspector
+- `src/use-cases/document-redaction/` — UC10 (new): document picker, span-level highlights, redacted preview, per-detection review
+- `src/backend/fixtures/mcpFederation.ts` — 7 MCP servers, tool catalog, federated tables (persons, occurrences, vehicles, drivers, CPIC, court, VS, ICES, intel), 3 canned plans
+- `src/backend/fixtures/documents.ts` — 5 sample documents, 50+ pre-tokenized entity spans
+- `src/backend/relational/simulated.ts` — extended with synthetic predicates (contains_person, location_contains, last_known_address_contains)
+- `src/portal/BackingServicesPanel.tsx` — reusable per-use-case backing-services inspector
+- `CLAUDE.md`, `PROMPT.md`, `progress.txt`, `sub-prompts/**` — Ralph artifacts
+
+---
+
+## Verification
+
+```
+npm run typecheck     ✓ exits 0
+npm run build         ✓ exits 0 (dist 298kB JS gzipped 91kB, 27kB CSS gzipped 6kB)
+npm run dev           → http://localhost:5174 (manual smoke)
+```
+
+## Stop condition status
+
+- [x] `npm run typecheck` exits 0
+- [x] `npm run build` exits 0
+- [x] Every entry in the `useCases` registry is non-`planned` and points at a real component
+- [x] Every use case folder contains an `index.tsx` and a `README.md`
+- [x] All required hygiene components present (DisclaimerBar, AIResponseCard, AuditTrail; HumanReviewBanner where applicable; RedactionToken where applicable)
+
+→ All stop conditions met. Loop exit.

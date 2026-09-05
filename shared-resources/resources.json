@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "gateways": [
+    {
+      "id": "nai",
+      "label": "Nutanix Enterprise AI",
+      "role": "primary",
+      "defaultBaseUrl": "https://nai.hpoc.nutanix.com:443/api/v1"
+    },
+    {
+      "id": "openrouter",
+      "label": "OpenRouter",
+      "role": "fallback",
+      "defaultBaseUrl": "https://openrouter.ai/api/v1"
+    }
+  ]
+}

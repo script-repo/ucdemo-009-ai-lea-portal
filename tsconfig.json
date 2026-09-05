@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": false,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    "baseUrl": ".",
+    "paths": {
+      // ── Consumer-facing alias — this is what app code imports from ──────
+      "@aisp/components":   ["vendor/aisp-design-system/src/components"],
+      "@aisp/icons":        ["vendor/aisp-design-system/src/icons"],
+      "@aisp/tokens":       ["vendor/aisp-design-system/src/tokens"],
+      "@aisp/styles":       ["vendor/aisp-design-system/src/styles/index.css"],
+      "@aisp/styles/*":     ["vendor/aisp-design-system/src/styles/*"],
+
+      // ── Passthrough for the design system's INTERNAL @/* imports ────────
+      //    The design-system source files use `@/components`, `@/icons`,
+      //    `@/tokens` etc. They must keep resolving when the bundler walks
+      //    into the submodule. Do NOT use @/* in application code — use
+      //    relative imports or @aisp/* instead.
+      "@/*":                ["vendor/aisp-design-system/src/*"]
+    }
+  },
+  "include": ["src", "vendor/aisp-design-system/src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

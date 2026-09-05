@@ -1,0 +1,285 @@
+/* AISP Design System — App shell + chrome
+   Sections 4, 5, 6, 7 of aisp_ui_design_spec.md */
+
+/* ── App shell ───────────────────────────────────────────────────────────── */
+.aisp-app {
+  display: grid;
+  grid-template-columns: var(--aisp-icon-rail-width) var(--aisp-side-panel-width) 1fr;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: var(--aisp-bg);
+}
+
+.aisp-app--no-side-panel {
+  grid-template-columns: var(--aisp-icon-rail-width) 1fr;
+}
+
+.main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--aisp-bg);
+  overflow: hidden;
+}
+
+.workspace {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 18px 28px;
+  background: var(--aisp-bg);
+}
+
+.workspace--narrow {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* ── Icon rail (4.2) ─────────────────────────────────────────────────────── */
+.icon-rail {
+  width: var(--aisp-icon-rail-width);
+  background: var(--aisp-blue);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 8px;
+  z-index: var(--z-rail);
+}
+
+.icon-rail__button {
+  width: var(--aisp-icon-rail-width);
+  height: 40px;
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.82);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.icon-rail__button:hover,
+.icon-rail__button.is-active {
+  background: var(--aisp-blue-dark);
+  color: #ffffff;
+}
+
+.icon-rail__button svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.8;
+}
+
+.icon-rail__spacer {
+  flex: 1;
+}
+
+/* ── Side panel (4.3) ────────────────────────────────────────────────────── */
+.side-panel {
+  width: var(--aisp-side-panel-width);
+  background: var(--aisp-panel-bg);
+  border-right: 1px solid var(--aisp-border);
+  overflow-y: auto;
+  font-size: var(--font-size-sm);
+  z-index: var(--z-panel);
+}
+
+.side-panel__header {
+  height: 52px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--aisp-border-soft);
+}
+
+.side-panel__title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  flex: 1;
+  color: var(--aisp-text);
+}
+
+.side-panel__close {
+  color: #a4a8b0;
+  font-size: 18px;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  padding: 4px;
+}
+
+.nav-group {
+  border-bottom: 1px solid var(--aisp-border-soft);
+}
+
+.nav-group__header {
+  height: 34px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: var(--aisp-text);
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  width: 100%;
+  text-align: left;
+  font-size: var(--font-size-sm);
+}
+
+.nav-group__header .chevron {
+  margin-left: auto;
+  color: #6f7580;
+  transition: transform 0.12s linear;
+}
+
+.nav-group--collapsed .chevron {
+  transform: rotate(-90deg);
+}
+
+.nav-item {
+  height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px 0 22px;
+  color: var(--aisp-text);
+  border-top: 1px solid var(--aisp-border-soft);
+  cursor: pointer;
+  background: transparent;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  width: 100%;
+  text-align: left;
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+}
+
+.nav-item:hover {
+  background: var(--aisp-muted-bg);
+  text-decoration: none;
+}
+
+.nav-item.is-active {
+  background: var(--aisp-blue-dark);
+  color: #ffffff;
+}
+
+.nav-item--muted {
+  color: var(--aisp-text-muted);
+}
+
+.nav-item__status {
+  margin-left: auto;
+}
+
+/* ── Top toolbar (5) ─────────────────────────────────────────────────────── */
+.top-toolbar {
+  height: var(--aisp-top-toolbar-height);
+  background: #ffffff;
+  border-bottom: 1px solid var(--aisp-border-soft);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  z-index: var(--z-toolbar);
+}
+
+.top-toolbar__left,
+.top-toolbar__right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.top-toolbar__left {
+  flex: 1;
+}
+
+.toolbar-button {
+  border: 0;
+  background: transparent;
+  color: var(--aisp-topbar-icon);
+  height: 32px;
+  min-width: 32px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toolbar-button:hover {
+  background: var(--aisp-muted-bg);
+}
+
+.toolbar-user {
+  font-size: var(--font-size-xs);
+  line-height: 1.1;
+  color: var(--aisp-text);
+  text-align: right;
+}
+
+/* ── Dark context header (6) ─────────────────────────────────────────────── */
+.context-header {
+  min-height: var(--aisp-context-header-height);
+  background: var(--aisp-charcoal);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+}
+
+.context-header__icon {
+  width: 26px;
+  margin-right: 12px;
+  opacity: 0.9;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.context-header__body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.context-header__title {
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.context-header__subtitle {
+  font-size: var(--font-size-sm);
+  color: rgba(255, 255, 255, 0.72);
+  margin-top: 2px;
+}
+
+.context-header__actions {
+  margin-left: auto;
+  display: flex;
+  gap: 18px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.context-header__action {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  padding: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.context-header__action:hover {
+  color: #ffffff;
+}

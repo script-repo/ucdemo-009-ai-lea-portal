@@ -1,0 +1,141 @@
+/* ============================================================================
+   AISP Design System — Design Tokens
+   Source of truth: aisp_ui_design_spec.md  (sections 2, 3, 20)
+   Extensions:      AI-specific tokens below
+   ============================================================================ */
+
+:root {
+  /* ── Brand / primary ─────────────────────────────────────────────────────── */
+  --aisp-blue: #1565b3;
+  --aisp-blue-dark: #0d4f91;
+  --aisp-blue-light: #2f7ec8;
+
+  /* ── Header / chrome ─────────────────────────────────────────────────────── */
+  --aisp-charcoal: #24262b;
+  --aisp-charcoal-2: #2f3137;
+  --aisp-topbar-icon: #6b6f77;
+
+  /* ── Surfaces ────────────────────────────────────────────────────────────── */
+  --aisp-bg: #ffffff;
+  --aisp-panel-bg: #ffffff;
+  --aisp-section-bg: #f3f4f8;
+  --aisp-row-bg: #ffffff;
+  --aisp-muted-bg: #f7f8fb;
+
+  /* ── Borders ─────────────────────────────────────────────────────────────── */
+  --aisp-border: #d9dce3;
+  --aisp-border-soft: #eceef3;
+  --aisp-border-dark: #c5c9d3;
+
+  /* ── Text ────────────────────────────────────────────────────────────────── */
+  --aisp-text: #2b2f36;
+  --aisp-text-muted: #6c7280;
+  --aisp-text-light: #ffffff;
+  --aisp-link: #215f9c;
+
+  /* ── Status ──────────────────────────────────────────────────────────────── */
+  --aisp-status-ok: #5a9f3b;
+  --aisp-status-warning: #f1c232;
+  --aisp-status-error: #c0392b;
+  --aisp-status-info: #3f7fbf;
+
+  /* ── Buttons ─────────────────────────────────────────────────────────────── */
+  --aisp-btn-primary: #1268b3;
+  --aisp-btn-primary-hover: #0e5798;
+  --aisp-btn-dark: #333333;
+  --aisp-btn-dark-hover: #222222;
+  --aisp-btn-disabled: #bfc4cc;
+
+  /* ── Layout ──────────────────────────────────────────────────────────────── */
+  --aisp-icon-rail-width: 42px;
+  --aisp-side-panel-width: 260px;
+  --aisp-top-toolbar-height: 42px;
+  --aisp-context-header-height: 52px;
+
+  /* ── Typography ──────────────────────────────────────────────────────────── */
+  --font-ui: Arial, Helvetica, "Roboto", sans-serif;
+  --font-mono: "Consolas", "Menlo", "Monaco", "Courier New", monospace;
+
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-md: 13px;
+  --font-size-base: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+
+  --line-tight: 1.2;
+  --line-normal: 1.4;
+
+  /* ── Spacing ─────────────────────────────────────────────────────────────── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+
+  /* ── Row heights ─────────────────────────────────────────────────────────── */
+  --row-height-sm: 30px;
+  --row-height-md: 34px;
+  --row-height-lg: 42px;
+
+  /* ── Radius ──────────────────────────────────────────────────────────────── */
+  --border-radius-none: 0;
+  --border-radius-sm: 2px;
+  --border-radius-pill: 999px;
+
+  /* ── Z-index ─────────────────────────────────────────────────────────────── */
+  --z-rail: 100;
+  --z-toolbar: 90;
+  --z-panel: 80;
+  --z-modal: 200;
+  --z-toast: 300;
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     AI EXTENSIONS — not in the original AISP spec.
+     These add a vocabulary for generative-AI patterns while preserving the
+     legacy enterprise look. Use sparingly: AI surfaces are visitors inside
+     a records-management environment, not the main visual identity.
+     ────────────────────────────────────────────────────────────────────── */
+
+  /* AI accent — slightly desaturated purple so AI surfaces are recognizable
+     without ever competing with the institutional blue used for primary
+     navigation and actions. */
+  --ai-accent: #5a4fb3;
+  --ai-accent-dark: #423a8e;
+  --ai-accent-soft: #eeecf7;
+  --ai-accent-border: #c8c3e3;
+
+  /* AI surfaces */
+  --ai-panel-bg: #fafaff;
+  --ai-stream-bg: #ffffff;
+  --ai-prompt-bg: #f7f7fb;
+
+  /* Confidence — three discrete levels, never a gradient. */
+  --ai-confidence-high: var(--aisp-status-ok);
+  --ai-confidence-medium: var(--aisp-status-warning);
+  --ai-confidence-low: var(--aisp-status-error);
+
+  /* Provenance / citation */
+  --ai-citation-bg: #eef3fa;
+  --ai-citation-border: #b6cbe3;
+  --ai-citation-text: var(--aisp-link);
+
+  /* Redaction — neutral, opaque, never red. Red is reserved for errors. */
+  --ai-redaction-bg: #2b2f36;
+  --ai-redaction-text: #ffffff;
+
+  /* Human-in-the-loop banner */
+  --ai-review-bg: #fff8e1;
+  --ai-review-border: #e6c75a;
+  --ai-review-text: #7a5a00;
+
+  /* Draft / "not evidence" disclaimer */
+  --ai-draft-bg: #fdecec;
+  --ai-draft-border: #e8a8a4;
+  --ai-draft-text: #8a2a23;
+
+  /* AI dimensions */
+  --ai-prompt-bar-height: 56px;
+  --ai-response-max-width: 760px;
+}

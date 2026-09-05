@@ -1,0 +1,509 @@
+/* AISP Design System — AI-specific patterns
+   These extend the AISP visual language with patterns required for
+   generative-AI surfaces in law-enforcement contexts. See docs/AI-PATTERNS.md
+   for the rationale behind each component. */
+
+/* ── AI panel (replaces side-panel for AI-driven use cases) ──────────────── */
+.ai-panel {
+  background: var(--ai-panel-bg);
+  border-right: 1px solid var(--aisp-border);
+  width: var(--aisp-side-panel-width);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-panel__title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--ai-accent-dark);
+}
+
+.ai-panel__title svg {
+  color: var(--ai-accent);
+}
+
+/* ── Disclaimer bar — "draft, not evidence" ──────────────────────────────── */
+.ai-disclaimer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: var(--ai-draft-bg);
+  border: 1px solid var(--ai-draft-border);
+  color: var(--ai-draft-text);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.ai-disclaimer svg {
+  flex: 0 0 auto;
+}
+
+.ai-disclaimer--inline {
+  margin-bottom: 12px;
+}
+
+/* ── Human-in-the-loop banner ────────────────────────────────────────────── */
+.ai-review-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--ai-review-bg);
+  border: 1px solid var(--ai-review-border);
+  color: var(--ai-review-text);
+  font-size: var(--font-size-md);
+  margin-bottom: 12px;
+}
+
+.ai-review-banner__icon {
+  flex: 0 0 auto;
+  color: var(--ai-review-text);
+}
+
+.ai-review-banner__body {
+  flex: 1;
+}
+
+.ai-review-banner__title {
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.ai-review-banner__actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* ── Prompt bar (where the user issues an AI request) ────────────────────── */
+.ai-prompt-bar {
+  border: 1px solid var(--ai-accent-border);
+  background: var(--ai-prompt-bg);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+}
+
+.ai-prompt-bar__textarea {
+  border: 0;
+  background: transparent;
+  padding: 10px 14px;
+  font-size: var(--font-size-base);
+  font-family: var(--font-ui);
+  resize: none;
+  outline: none;
+  min-height: 56px;
+  max-height: 200px;
+  color: var(--aisp-text);
+}
+
+.ai-prompt-bar__actions {
+  display: flex;
+  gap: 6px;
+  padding: 8px;
+  border-left: 1px solid var(--ai-accent-border);
+  align-items: center;
+}
+
+.ai-prompt-bar__hint {
+  font-size: var(--font-size-xs);
+  color: var(--aisp-text-muted);
+  padding: 4px 14px 8px;
+}
+
+/* ── Response card (one AI turn) ─────────────────────────────────────────── */
+.ai-response {
+  border: 1px solid var(--aisp-border);
+  background: var(--ai-stream-bg);
+  margin-bottom: 12px;
+  max-width: var(--ai-response-max-width);
+}
+
+.ai-response__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--aisp-border-soft);
+  background: var(--ai-accent-soft);
+  font-size: var(--font-size-sm);
+  color: var(--ai-accent-dark);
+  font-weight: 600;
+}
+
+.ai-response__header-spacer {
+  flex: 1;
+}
+
+.ai-response__body {
+  padding: 14px 16px;
+  font-size: var(--font-size-base);
+  line-height: 1.55;
+  color: var(--aisp-text);
+}
+
+.ai-response__body p {
+  margin: 0 0 10px;
+}
+
+.ai-response__body p:last-child {
+  margin-bottom: 0;
+}
+
+.ai-response__footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-top: 1px solid var(--aisp-border-soft);
+  background: var(--aisp-muted-bg);
+  font-size: var(--font-size-sm);
+  color: var(--aisp-text-muted);
+}
+
+.ai-response__footer-spacer {
+  flex: 1;
+}
+
+.ai-response__actions {
+  display: flex;
+  gap: 4px;
+}
+
+/* User-turn variant (no header, plain charcoal frame) */
+.ai-response--user {
+  border-color: var(--aisp-border);
+  background: var(--aisp-muted-bg);
+}
+
+.ai-response--user .ai-response__body {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* ── Citation chip ───────────────────────────────────────────────────────── */
+.citation-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  font-size: 10px;
+  font-weight: 700;
+  background: var(--ai-citation-bg);
+  border: 1px solid var(--ai-citation-border);
+  color: var(--ai-citation-text);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  vertical-align: 1px;
+  margin: 0 2px;
+  text-decoration: none;
+  line-height: 1;
+  font-family: var(--font-ui);
+}
+
+.citation-chip:hover {
+  background: #dde8f5;
+  text-decoration: none;
+}
+
+.citation-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.citation-source {
+  display: grid;
+  grid-template-columns: 22px 1fr auto;
+  gap: 8px;
+  align-items: start;
+  padding: 8px 10px;
+  border: 1px solid var(--aisp-border);
+  background: #ffffff;
+  font-size: var(--font-size-md);
+}
+
+.citation-source__index {
+  width: 22px;
+  height: 22px;
+  background: var(--ai-citation-bg);
+  border: 1px solid var(--ai-citation-border);
+  color: var(--ai-citation-text);
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-sm);
+}
+
+.citation-source__title {
+  font-weight: 600;
+  color: var(--aisp-text);
+}
+
+.citation-source__meta {
+  font-size: var(--font-size-sm);
+  color: var(--aisp-text-muted);
+  margin-top: 2px;
+}
+
+/* ── Confidence badge ────────────────────────────────────────────────────── */
+.confidence {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 6px;
+  border-radius: var(--border-radius-sm);
+  border: 1px solid;
+  line-height: 1;
+}
+
+.confidence__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.confidence--high {
+  color: #2e6d18;
+  background: #e7f3df;
+  border-color: #b8d8a1;
+}
+
+.confidence--high .confidence__dot {
+  background: var(--ai-confidence-high);
+}
+
+.confidence--medium {
+  color: #7a5a00;
+  background: #fbf2cc;
+  border-color: #e6c75a;
+}
+
+.confidence--medium .confidence__dot {
+  background: var(--ai-confidence-medium);
+}
+
+.confidence--low {
+  color: var(--ai-draft-text);
+  background: var(--ai-draft-bg);
+  border-color: var(--ai-draft-border);
+}
+
+.confidence--low .confidence__dot {
+  background: var(--ai-confidence-low);
+}
+
+/* ── Redaction token ─────────────────────────────────────────────────────── */
+.redaction {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px;
+  background: var(--ai-redaction-bg);
+  color: var(--ai-redaction-text);
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border-radius: var(--border-radius-sm);
+  cursor: help;
+  text-transform: uppercase;
+}
+
+.redaction--revealed {
+  background: transparent;
+  color: var(--aisp-text);
+  border: 1px dashed var(--aisp-border-dark);
+  text-transform: none;
+  letter-spacing: 0;
+  font-family: var(--font-ui);
+}
+
+/* ── Streaming indicator ─────────────────────────────────────────────────── */
+.ai-streaming {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-size-sm);
+  color: var(--aisp-text-muted);
+}
+
+.ai-streaming__dots {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.ai-streaming__dots span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ai-accent);
+  animation: ai-pulse 1.2s ease-in-out infinite;
+}
+
+.ai-streaming__dots span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.ai-streaming__dots span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes ai-pulse {
+  0%,
+  80%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.85);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ── Source selector (which records does the AI see?) ────────────────────── */
+.source-selector {
+  border: 1px solid var(--aisp-border);
+  background: #ffffff;
+}
+
+.source-selector__header {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--aisp-border);
+  background: var(--aisp-section-bg);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.source-selector__list {
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.source-selector__item {
+  display: grid;
+  grid-template-columns: 22px 1fr auto;
+  gap: 8px;
+  align-items: center;
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--aisp-border-soft);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  background: transparent;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  width: 100%;
+  text-align: left;
+  color: inherit;
+}
+
+.source-selector__item:last-child {
+  border-bottom: 0;
+}
+
+.source-selector__item:hover {
+  background: var(--aisp-muted-bg);
+}
+
+.source-selector__item input[type="checkbox"] {
+  margin: 0;
+}
+
+/* ── Audit trail ─────────────────────────────────────────────────────────── */
+.audit-trail {
+  border: 1px solid var(--aisp-border);
+  background: #ffffff;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+}
+
+.audit-trail__header {
+  padding: 6px 12px;
+  background: var(--aisp-charcoal);
+  color: #ffffff;
+  font-family: var(--font-ui);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.audit-trail__list {
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.audit-trail__item {
+  display: grid;
+  grid-template-columns: 120px 80px 1fr;
+  gap: 8px;
+  padding: 4px 12px;
+  border-bottom: 1px solid var(--aisp-border-soft);
+}
+
+.audit-trail__item:last-child {
+  border-bottom: 0;
+}
+
+.audit-trail__time {
+  color: var(--aisp-text-muted);
+}
+
+.audit-trail__actor {
+  color: var(--aisp-text);
+}
+
+.audit-trail__action {
+  color: var(--aisp-text);
+}
+
+.audit-trail__action--ai {
+  color: var(--ai-accent-dark);
+}
+
+/* ── Inline AI suggestion (within a record/form) ─────────────────────────── */
+.ai-suggestion {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 10px;
+  background: var(--ai-accent-soft);
+  border: 1px solid var(--ai-accent-border);
+  font-size: var(--font-size-md);
+  margin-top: 4px;
+}
+
+.ai-suggestion__icon {
+  color: var(--ai-accent);
+  flex: 0 0 auto;
+  margin-top: 1px;
+}
+
+.ai-suggestion__body {
+  flex: 1;
+  color: var(--aisp-text);
+}
+
+.ai-suggestion__actions {
+  display: flex;
+  gap: 4px;
+}

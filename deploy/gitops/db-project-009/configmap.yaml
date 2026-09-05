@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: portal-config
+data:
+  NKP_CLUSTER_NAME: nkp-cluster
+  NKP_NAMESPACE: db-project-009
+  OPENROUTER_BASE_URL: https://openrouter.ai/api/v1
+  NAI_BASE_URL: https://nai.hpoc.nutanix.com:443/api/v1

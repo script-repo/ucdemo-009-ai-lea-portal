@@ -1,0 +1,149 @@
+/* AISP Design System — Mobile overrides
+   Section 16 of the spec.
+   Mobile is NOT a responsive clone of desktop; it is a simplified
+   vertically-stacked surface. */
+
+.mobile-only {
+  display: none;
+}
+
+.mobile-shell {
+  max-width: 480px;
+  min-height: 100vh;
+  background: #ffffff;
+  font-family: var(--font-ui);
+  margin: 0 auto;
+}
+
+.mobile-appbar {
+  height: 56px;
+  background: linear-gradient(90deg, #1f63b7, #537cc7);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  gap: 14px;
+}
+
+.mobile-appbar__title {
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+}
+
+.mobile-appbar .hamburger {
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: 0;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 0;
+}
+
+.mobile-content {
+  padding: 28px 32px;
+}
+
+.mobile-page-title {
+  font-size: var(--font-size-xl);
+  font-weight: 400;
+  color: #2d2f34;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #9fa4ac;
+  margin: 0;
+}
+
+.mobile-search-row {
+  display: grid;
+  grid-template-columns: 1fr 72px;
+  align-items: end;
+  gap: 0;
+  margin-top: 24px;
+}
+
+.mobile-search-input {
+  height: 42px;
+  border: 0;
+  border-bottom: 1px solid #b8bcc4;
+  font-size: 16px;
+  padding: 0 8px;
+  outline: none;
+}
+
+.mobile-search-input:focus {
+  border-bottom-color: var(--aisp-blue);
+}
+
+.mobile-search-button {
+  height: 40px;
+  border: 0;
+  border-radius: 3px;
+  background: #5477bd;
+  color: white;
+  cursor: pointer;
+}
+
+.mobile-links {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 22px;
+  font-size: var(--font-size-base);
+}
+
+.mobile-links a {
+  color: #315f99;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.mobile-section-title {
+  font-size: 17px;
+  font-weight: 500;
+  color: #3d5f87;
+  padding: 16px 0 8px;
+  border-bottom: 1px solid var(--aisp-border);
+}
+
+.mobile-list {
+  border-top: 1px solid var(--aisp-border-soft);
+}
+
+.mobile-list-item {
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--aisp-border-soft);
+  font-size: 16px;
+  color: #315f89;
+  padding: 0 4px;
+  text-decoration: none;
+}
+
+/* Mobile media query — collapse desktop chrome */
+@media (max-width: 767px) {
+  .aisp-app {
+    display: block;
+    height: 100vh;
+  }
+
+  .icon-rail,
+  .side-panel,
+  .ai-panel,
+  .top-toolbar,
+  .context-header {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+
+  .workspace {
+    padding: 24px 30px;
+    overflow-y: auto;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,10 @@
+/* AISP Design System — entry stylesheet.
+   Import this once at the application root. */
+
+@import "./tokens.css";
+@import "./reset.css";
+@import "./layout.css";
+@import "./primitives.css";
+@import "./patterns.css";
+@import "./ai.css";
+@import "./mobile.css";
