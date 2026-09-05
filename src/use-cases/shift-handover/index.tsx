@@ -33,6 +33,7 @@ import {
   useBackend,
 } from "../../backend";
 import { BackingServicesPanel } from "../../portal/BackingServicesPanel";
+import { InferenceUsage, usageFromCompletion } from "../../portal/InferenceUsage";
 import { MarkdownBody } from "../../portal/MarkdownBody";
 
 /**
@@ -66,6 +67,10 @@ export function ShiftHandoverUseCase() {
     confidence: "high" | "medium" | "low";
     citationIdxs: number[];
     timestamp: Date;
+    tokensUsed: number;
+    promptTokens?: number;
+    completionTokens?: number;
+    tokensEstimated?: boolean;
   } | null>(null);
   const [openOccurrenceId, setOpenOccurrenceId] = useState<string | null>(null);
 
@@ -122,6 +127,7 @@ export function ShiftHandoverUseCase() {
         confidence: r.data.confidence,
         citationIdxs: r.data.citations,
         timestamp: new Date(),
+        ...usageFromCompletion(r.data),
       });
       logProv(`Generated handover narrative (${r.data.text.length} chars)`, r.provenance);
     } catch (e) {
@@ -227,6 +233,7 @@ export function ShiftHandoverUseCase() {
                 model="AISP · Shift Handover"
                 confidence={draft.confidence}
                 timestamp={draft.timestamp}
+                footer={<InferenceUsage {...draft} />}
                 actions={
                   <Button
                     variant="ghost"

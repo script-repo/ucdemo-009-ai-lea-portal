@@ -1,0 +1,9 @@
+/* Muted meter on AIResponseCard footer. Tokens only, no colour literals. */
+.ai-inference-usage {
+  font-size: var(--font-size-xs);
+  color: var(--aisp-text-muted);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  opacity: 0.85;
+}

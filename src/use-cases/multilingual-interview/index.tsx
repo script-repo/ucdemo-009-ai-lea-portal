@@ -22,6 +22,7 @@ import {
   useBackend,
 } from "../../backend";
 import { BackingServicesPanel } from "../../portal/BackingServicesPanel";
+import { InferenceUsage, usageFromCompletion } from "../../portal/InferenceUsage";
 import { MarkdownBody } from "../../portal/MarkdownBody";
 
 /**
@@ -46,6 +47,10 @@ export function MultilingualInterviewUseCase() {
     text: string;
     confidence: "high" | "medium" | "low";
     timestamp: Date;
+    tokensUsed: number;
+    promptTokens?: number;
+    completionTokens?: number;
+    tokensEstimated?: boolean;
   } | null>(null);
 
   const [audit, setAudit] = useState<AuditEntry[]>([
@@ -114,6 +119,7 @@ export function MultilingualInterviewUseCase() {
         text: r.data.text,
         confidence: r.data.confidence,
         timestamp: new Date(),
+        ...usageFromCompletion(r.data),
       });
       logProv(`Generated summary (${r.data.text.length} chars)`, r.provenance);
     } catch (e) {
@@ -288,6 +294,7 @@ export function MultilingualInterviewUseCase() {
                 model="AISP · Interview Summary"
                 confidence={summary.confidence}
                 timestamp={summary.timestamp}
+                footer={<InferenceUsage {...summary} />}
                 actions={
                   <Button
                     variant="ghost"

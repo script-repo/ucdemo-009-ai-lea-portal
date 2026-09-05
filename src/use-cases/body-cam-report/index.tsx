@@ -25,6 +25,7 @@ import {
   useBackend,
 } from "../../backend";
 import { BackingServicesPanel } from "../../portal/BackingServicesPanel";
+import { InferenceUsage, usageFromCompletion } from "../../portal/InferenceUsage";
 import { MarkdownBody } from "../../portal/MarkdownBody";
 
 /**
@@ -49,6 +50,10 @@ export function BodyCamReportUseCase() {
     confidence: "high" | "medium" | "low";
     timestamp: Date;
     citationIdxs: number[];
+    tokensUsed: number;
+    promptTokens?: number;
+    completionTokens?: number;
+    tokensEstimated?: boolean;
   } | null>(null);
 
   const [audit, setAudit] = useState<AuditEntry[]>([
@@ -113,6 +118,7 @@ export function BodyCamReportUseCase() {
         confidence: res.data.confidence,
         timestamp: new Date(),
         citationIdxs: res.data.citations,
+        ...usageFromCompletion(res.data),
       });
       logProv(`Generated narrative (${res.data.text.length} chars)`, res.provenance);
     } catch (e) {
@@ -284,6 +290,7 @@ export function BodyCamReportUseCase() {
                 model="AISP · Body-Cam Report Draft"
                 confidence={draft.confidence}
                 timestamp={draft.timestamp}
+                footer={<InferenceUsage {...draft} />}
                 actions={
                   <Button
                     variant="ghost"

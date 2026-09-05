@@ -25,6 +25,7 @@ import {
   useBackend,
 } from "../../backend";
 import { BackingServicesPanel } from "../../portal/BackingServicesPanel";
+import { InferenceUsage, usageFromCompletion } from "../../portal/InferenceUsage";
 import { MarkdownBody } from "../../portal/MarkdownBody";
 
 type ViewMode = "highlights" | "redacted";
@@ -66,6 +67,10 @@ export function DocumentRedactionUseCase() {
   const [recommendation, setRecommendation] = useState<{
     text: string;
     confidence: "high" | "medium" | "low";
+    tokensUsed: number;
+    promptTokens?: number;
+    completionTokens?: number;
+    tokensEstimated?: boolean;
   } | null>(null);
 
   const [audit, setAudit] = useState<AuditEntry[]>([
@@ -127,7 +132,11 @@ export function DocumentRedactionUseCase() {
       }
       setDecisions(initial);
       setHasRun(true);
-      setRecommendation({ text: r.data.text, confidence: r.data.confidence });
+      setRecommendation({
+        text: r.data.text,
+        confidence: r.data.confidence,
+        ...usageFromCompletion(r.data),
+      });
       logProv(
         `Detected ${doc.entities.length} candidate entities, ${doc.entities.filter((e) => e.recommended).length} recommended for redaction`,
         r.provenance,
@@ -287,6 +296,7 @@ export function DocumentRedactionUseCase() {
               model="AISP · Document Redaction"
               confidence={recommendation.confidence}
               timestamp={new Date()}
+              footer={<InferenceUsage {...recommendation} />}
             >
               <MarkdownBody>{recommendation.text}</MarkdownBody>
             </AIResponseCard>

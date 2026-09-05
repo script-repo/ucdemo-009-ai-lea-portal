@@ -26,6 +26,7 @@ import {
   useBackend,
 } from "../../backend";
 import { BackingServicesPanel } from "../../portal/BackingServicesPanel";
+import { InferenceUsage, usageFromCompletion } from "../../portal/InferenceUsage";
 import { MarkdownBody } from "../../portal/MarkdownBody";
 
 const CATEGORIES: CallCategory[] = [
@@ -75,6 +76,10 @@ export function Transcript911UseCase() {
     text: string;
     confidence: "high" | "medium" | "low";
     timestamp: Date;
+    tokensUsed: number;
+    promptTokens?: number;
+    completionTokens?: number;
+    tokensEstimated?: boolean;
   } | null>(null);
 
   const [audit, setAudit] = useState<AuditEntry[]>([
@@ -157,6 +162,7 @@ export function Transcript911UseCase() {
         text: r.data.text,
         confidence: r.data.confidence,
         timestamp: new Date(),
+        ...usageFromCompletion(r.data),
       });
       logProv(`Generated insight summary`, r.provenance);
     } catch (e) {
@@ -542,6 +548,7 @@ export function Transcript911UseCase() {
                 model="AISP · 911 Insight Summary"
                 confidence={summary.confidence}
                 timestamp={summary.timestamp}
+                footer={<InferenceUsage {...summary} />}
               >
                 <MarkdownBody>{summary.text}</MarkdownBody>
               </AIResponseCard>

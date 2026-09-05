@@ -26,6 +26,7 @@ import {
   type VectorMatch,
 } from "../../backend";
 import { BackingServicesPanel } from "../../portal/BackingServicesPanel";
+import { InferenceUsage, usageFromCompletion } from "../../portal/InferenceUsage";
 import { MarkdownBody } from "../../portal/MarkdownBody";
 
 /**
@@ -71,6 +72,10 @@ export function EvidenceIntelUseCase() {
     confidence: "high" | "medium" | "low";
     citations: number[];
     timestamp: Date;
+    tokensUsed: number;
+    promptTokens?: number;
+    completionTokens?: number;
+    tokensEstimated?: boolean;
   } | null>(null);
   const [highlightedItem, setHighlightedItem] = useState<string | null>(null);
 
@@ -135,6 +140,7 @@ export function EvidenceIntelUseCase() {
         confidence: r2.data.confidence,
         citations: r2.data.citations,
         timestamp: new Date(),
+        ...usageFromCompletion(r2.data),
       });
       logProv(`Generated grounded answer`, r2.provenance);
     } catch (e) {
@@ -248,6 +254,7 @@ export function EvidenceIntelUseCase() {
                 model="AISP · Evidence Intel"
                 confidence={response.confidence}
                 timestamp={response.timestamp}
+                footer={<InferenceUsage {...response} />}
               >
                 <MarkdownBody>{response.text}</MarkdownBody>
                 {citations.length > 0 && (

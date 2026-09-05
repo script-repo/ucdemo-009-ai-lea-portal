@@ -27,6 +27,7 @@ import {
 } from "../../backend";
 import { LINK_ANALYSIS_ANSWERS } from "../../backend/fixtures/network";
 import { BackingServicesPanel } from "../../portal/BackingServicesPanel";
+import { InferenceUsage, usageFromCompletion } from "../../portal/InferenceUsage";
 import { MarkdownBody } from "../../portal/MarkdownBody";
 
 const KIND_LABEL: Record<EntityKind, string> = {
@@ -60,6 +61,10 @@ export function LinkAnalysisUseCase() {
     edgeIdxs: number[];
     highlight: string[];
     timestamp: Date;
+    tokensUsed: number;
+    promptTokens?: number;
+    completionTokens?: number;
+    tokensEstimated?: boolean;
   } | null>(null);
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -118,6 +123,7 @@ export function LinkAnalysisUseCase() {
         edgeIdxs: r.data.citations,
         highlight: fixture?.answer.highlight ?? [],
         timestamp: new Date(),
+        ...usageFromCompletion(r.data),
       });
       logProv(
         `Generated narrative (${r.data.citations.length} edge citations)`,
@@ -303,6 +309,7 @@ export function LinkAnalysisUseCase() {
                 model="AISP · Link Analysis (air-gapped)"
                 confidence={response.confidence}
                 timestamp={response.timestamp}
+                footer={<InferenceUsage {...response} />}
               >
                 <MarkdownBody>{response.text}</MarkdownBody>
                 {citations.length > 0 && (

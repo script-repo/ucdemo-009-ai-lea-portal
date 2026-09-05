@@ -92,12 +92,47 @@ export function buildChatMessages(req: CompletionRequest): ChatMessage[] {
   return messages;
 }
 
+function resolveTokenUsage(
+  usage:
+    | {
+        total_tokens?: number;
+        prompt_tokens?: number;
+        completion_tokens?: number;
+      }
+    | undefined,
+  text: string,
+): {
+  tokensUsed: number;
+  promptTokens?: number;
+  completionTokens?: number;
+  tokensEstimated: boolean;
+} {
+  const promptTokens = usage?.prompt_tokens;
+  const completionTokens = usage?.completion_tokens;
+  const reported =
+    usage?.total_tokens ??
+    (promptTokens != null && completionTokens != null ? promptTokens + completionTokens : undefined);
+  return {
+    tokensUsed: reported ?? Math.max(1, Math.round(text.length / 3.5)),
+    promptTokens,
+    completionTokens,
+    tokensEstimated: reported == null,
+  };
+}
+
 async function callOne(
   candidate: InferenceCandidate,
   messages: ChatMessage[],
   maxTokens: number,
   timeoutMs: number,
-): Promise<{ text: string; model: string; tokensUsed: number }> {
+): Promise<{
+  text: string;
+  model: string;
+  tokensUsed: number;
+  promptTokens?: number;
+  completionTokens?: number;
+  tokensEstimated: boolean;
+}> {
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -129,7 +164,11 @@ async function callOne(
     const json = (await res.json()) as {
       choices?: Array<{ message?: { content?: string }; text?: string }>;
       model?: string;
-      usage?: { total_tokens?: number };
+      usage?: {
+        total_tokens?: number;
+        prompt_tokens?: number;
+        completion_tokens?: number;
+      };
     };
     const text =
       json.choices?.[0]?.message?.content ?? json.choices?.[0]?.text ?? "";
@@ -139,7 +178,7 @@ async function callOne(
     return {
       text,
       model: json.model || candidate.model,
-      tokensUsed: json.usage?.total_tokens ?? Math.round(text.length / 3.5),
+      ...resolveTokenUsage(json.usage, text),
     };
   } catch (err) {
     if (err instanceof DOMException && err.name === "AbortError") {
@@ -173,6 +212,9 @@ export async function chatCompletion(
         citations: req.context?.map((_, i) => i) ?? [],
         confidence: "medium",
         tokensUsed: result.tokensUsed,
+        promptTokens: result.promptTokens,
+        completionTokens: result.completionTokens,
+        tokensEstimated: result.tokensEstimated,
         model: result.model,
         providerLabel: candidate.label,
       };

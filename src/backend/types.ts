@@ -68,8 +68,12 @@ export interface CompletionResult {
   citations: number[];
   /** Categorical confidence — never expose raw scores in the UI. */
   confidence: "high" | "medium" | "low";
-  /** Tokens consumed (estimated in simulated mode). */
+  /** Tokens consumed (estimated in simulated mode, or when the provider omits usage). */
   tokensUsed: number;
+  promptTokens?: number;
+  completionTokens?: number;
+  /** True when tokensUsed was inferred from output length, not provider usage. */
+  tokensEstimated?: boolean;
   model: string;
 }
 

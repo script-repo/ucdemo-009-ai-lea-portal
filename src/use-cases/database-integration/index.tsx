@@ -28,6 +28,7 @@ import {
   useBackend,
 } from "../../backend";
 import { BackingServicesPanel } from "../../portal/BackingServicesPanel";
+import { InferenceUsage, usageFromCompletion } from "../../portal/InferenceUsage";
 import { MarkdownBody } from "../../portal/MarkdownBody";
 
 /**
@@ -53,6 +54,10 @@ export function DatabaseIntegrationUseCase() {
     confidence: "high" | "medium" | "low";
     timestamp: Date;
     citationSteps: number[];
+    tokensUsed?: number;
+    promptTokens?: number;
+    completionTokens?: number;
+    tokensEstimated?: boolean;
   } | null>(null);
 
   const [audit, setAudit] = useState<AuditEntry[]>([
@@ -136,6 +141,7 @@ export function DatabaseIntegrationUseCase() {
         confidence: synth.data.confidence,
         timestamp: new Date(),
         citationSteps: synth.data.citations,
+        ...usageFromCompletion(synth.data),
       });
       logProv(`synthesis ready`, synth.provenance);
     } catch (e) {
@@ -299,6 +305,7 @@ export function DatabaseIntegrationUseCase() {
                 model="AISP · Federation Agent"
                 confidence={synthesis.confidence}
                 timestamp={synthesis.timestamp}
+                footer={<InferenceUsage {...synthesis} />}
               >
                 <MarkdownBody>{synthesis.text}</MarkdownBody>
                 {citations.length > 0 && (

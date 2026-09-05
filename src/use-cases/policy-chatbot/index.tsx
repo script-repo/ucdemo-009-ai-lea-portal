@@ -22,6 +22,7 @@ import {
   type VectorMatch,
 } from "../../backend";
 import { BackingServicesPanel } from "../../portal/BackingServicesPanel";
+import { InferenceUsage, usageFromCompletion } from "../../portal/InferenceUsage";
 import { MarkdownBody } from "../../portal/MarkdownBody";
 
 type Turn =
@@ -33,6 +34,10 @@ type Turn =
       retrieved: VectorMatch[];
       citations: number[];
       timestamp: Date;
+      tokensUsed: number;
+      promptTokens?: number;
+      completionTokens?: number;
+      tokensEstimated?: boolean;
     };
 
 /**
@@ -103,6 +108,7 @@ export function PolicyChatbotUseCase() {
           retrieved: r1.data.matches,
           citations: r2.data.citations,
           timestamp: new Date(),
+          ...usageFromCompletion(r2.data),
         },
       ]);
     } catch (e) {
@@ -252,6 +258,7 @@ function TurnCard({
         model="AISP · Policy & Legal Reference"
         confidence={turn.confidence}
         timestamp={turn.timestamp}
+        footer={<InferenceUsage {...turn} />}
       >
         <MarkdownBody>{turn.text}</MarkdownBody>
         {citations.length > 0 && (

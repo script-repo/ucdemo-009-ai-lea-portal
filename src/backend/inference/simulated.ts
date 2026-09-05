@@ -197,6 +197,7 @@ export const simulatedInference: InferenceClient = {
         citations,
         confidence,
         tokensUsed: Math.round(text.length / 3.5),
+        tokensEstimated: true,
         model: MODEL_NAME,
       },
       provenance: tag(source, latency),
