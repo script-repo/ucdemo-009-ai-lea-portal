@@ -100,11 +100,11 @@ export {
   subscribeInferenceSettings,
   testProvider,
 } from "./inference/settings";
-export type {
-  InferenceProviderId,
-  InferenceSettings,
-  ProviderSettings,
-} from "./inference/settings";
+export {
+  getActiveInferenceModel,
+  subscribeActiveInferenceModel,
+} from "./inference/activeModel";
+export type { ActiveInferenceModel } from "./inference/activeModel";
 export type {
   CompletionRequest,
   CompletionResult,

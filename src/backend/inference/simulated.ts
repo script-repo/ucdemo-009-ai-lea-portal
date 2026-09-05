@@ -8,6 +8,7 @@
  */
 
 import { simulateLatency, streamChunks } from "../latency";
+import { recordInferenceCall } from "./activeModel";
 import type {
   CompletionRequest,
   CompletionResult,
@@ -187,6 +188,8 @@ export const simulatedInference: InferenceClient = {
     if (req.onChunk) {
       await streamChunks(text, req.onChunk);
     }
+
+    recordInferenceCall({ model: MODEL_NAME, providerLabel: "Simulated" });
 
     return {
       data: {

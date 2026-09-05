@@ -21,6 +21,7 @@ import type {
   VisionRedactionResult,
 } from "../types";
 import { chatCompletion } from "./gateway";
+import { recordInferenceCall } from "./activeModel";
 
 function notConfigured(method: string, url: string): never {
   throw new Error(
@@ -45,6 +46,7 @@ export const realInference: InferenceClient = {
       return result;
     });
     const { providerLabel, ...completion } = data;
+    recordInferenceCall({ model: completion.model, providerLabel });
     return {
       data: completion,
       provenance: {

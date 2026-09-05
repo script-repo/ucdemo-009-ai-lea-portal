@@ -1,4 +1,10 @@
+import { useEffect, useState } from "react";
 import { Icon, type IconName, Section } from "@aisp/components";
+import {
+  getActiveInferenceModel,
+  subscribeActiveInferenceModel,
+  type ActiveInferenceModel,
+} from "../backend/inference/activeModel";
 
 /**
  * Per-use-case "Backing services" inspector.
@@ -64,8 +70,25 @@ const LABEL_BY_KIND: Record<BackingServiceKind, string> = {
 };
 
 export function BackingServicesPanel({ services }: { services: BackingService[] }) {
+  const [inference, setInference] = useState<ActiveInferenceModel>(() =>
+    getActiveInferenceModel(),
+  );
+  useEffect(() => subscribeActiveInferenceModel(setInference), []);
+
+  const resolved = services.map((s) =>
+    s.kind === "llm"
+      ? {
+          ...s,
+          name: inference.model,
+          detail: s.detail
+            ? `${inference.providerLabel} · ${s.detail}`
+            : inference.providerLabel,
+        }
+      : s,
+  );
+
   return (
-    <Section title="Backing services" count={services.length}>
+    <Section title="Backing services" count={resolved.length}>
       <div
         style={{
           fontSize: "var(--font-size-sm)",
@@ -74,7 +97,7 @@ export function BackingServicesPanel({ services }: { services: BackingService[] 
           gap: 4,
         }}
       >
-        {services.map((s, i) => (
+        {resolved.map((s, i) => (
           <div key={i} style={{ display: "flex", gap: 6, alignItems: "baseline" }}>
             <Icon name={ICON_BY_KIND[s.kind]} size={12} />
             <span>
