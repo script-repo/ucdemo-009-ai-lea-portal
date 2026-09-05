@@ -17,4 +17,4 @@ resources:
 
 images:
   - name: ghcr.io/script-repo/ucdemo-009-ai-lea-portal/portal
-    newTag: sha-39ef5740e57083b0be0f3375d44d34a96781ccc7
+    newTag: sha-9fa4a767090ac10320bf5b8378ef454def40187c
