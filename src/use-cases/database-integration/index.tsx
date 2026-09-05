@@ -28,6 +28,7 @@ import {
   useBackend,
 } from "../../backend";
 import { BackingServicesPanel } from "../../portal/BackingServicesPanel";
+import { MarkdownBody } from "../../portal/MarkdownBody";
 
 /**
  * UC9 — Database Integration via MCP federation.
@@ -299,12 +300,14 @@ export function DatabaseIntegrationUseCase() {
                 confidence={synthesis.confidence}
                 timestamp={synthesis.timestamp}
               >
-                <p style={{ margin: 0 }}>
-                  {synthesis.text}{" "}
-                  {citations.slice(0, 5).map((c) => (
-                    <CitationChip key={c.index} citation={c} />
-                  ))}
-                </p>
+                <MarkdownBody>{synthesis.text}</MarkdownBody>
+                {citations.length > 0 && (
+                  <p>
+                    {citations.slice(0, 5).map((c) => (
+                      <CitationChip key={c.index} citation={c} />
+                    ))}
+                  </p>
+                )}
               </AIResponseCard>
               {citations.length > 0 && (
                 <Section title="Steps cited" count={citations.length}>

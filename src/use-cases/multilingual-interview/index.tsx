@@ -22,6 +22,7 @@ import {
   useBackend,
 } from "../../backend";
 import { BackingServicesPanel } from "../../portal/BackingServicesPanel";
+import { MarkdownBody } from "../../portal/MarkdownBody";
 
 /**
  * UC4 — Multilingual Interview Transcription & Translation.
@@ -298,7 +299,7 @@ export function MultilingualInterviewUseCase() {
                   </Button>
                 }
               >
-                <p style={{ marginTop: 0 }}>{summary.text}</p>
+                <MarkdownBody>{summary.text}</MarkdownBody>
                 <p style={{ marginBottom: 0, fontSize: "var(--font-size-sm)" }}>
                   <strong>Interviewee role:</strong> {clip.intervieweeRole} —{" "}
                   {clip.intervieweeRole === "victim" ? (

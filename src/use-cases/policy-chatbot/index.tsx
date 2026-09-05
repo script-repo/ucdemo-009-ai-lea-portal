@@ -22,6 +22,7 @@ import {
   type VectorMatch,
 } from "../../backend";
 import { BackingServicesPanel } from "../../portal/BackingServicesPanel";
+import { MarkdownBody } from "../../portal/MarkdownBody";
 
 type Turn =
   | { kind: "user"; text: string; timestamp: Date }
@@ -252,12 +253,14 @@ function TurnCard({
         confidence={turn.confidence}
         timestamp={turn.timestamp}
       >
-        <p style={{ margin: 0 }}>
-          {turn.text}{" "}
-          {citations.slice(0, 3).map((c) => (
-            <CitationChip key={c.index} citation={c} />
-          ))}
-        </p>
+        <MarkdownBody>{turn.text}</MarkdownBody>
+        {citations.length > 0 && (
+          <p>
+            {citations.slice(0, 3).map((c) => (
+              <CitationChip key={c.index} citation={c} />
+            ))}
+          </p>
+        )}
       </AIResponseCard>
       {citations.length > 0 && (
         <Section title="Sources" count={citations.length}>

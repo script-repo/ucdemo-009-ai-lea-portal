@@ -27,6 +27,7 @@ import {
 } from "../../backend";
 import { LINK_ANALYSIS_ANSWERS } from "../../backend/fixtures/network";
 import { BackingServicesPanel } from "../../portal/BackingServicesPanel";
+import { MarkdownBody } from "../../portal/MarkdownBody";
 
 const KIND_LABEL: Record<EntityKind, string> = {
   person: "Person",
@@ -303,12 +304,14 @@ export function LinkAnalysisUseCase() {
                 confidence={response.confidence}
                 timestamp={response.timestamp}
               >
-                <p style={{ margin: 0 }}>
-                  {response.text}{" "}
-                  {citations.slice(0, 6).map((c) => (
-                    <CitationChip key={c.index} citation={c} />
-                  ))}
-                </p>
+                <MarkdownBody>{response.text}</MarkdownBody>
+                {citations.length > 0 && (
+                  <p>
+                    {citations.slice(0, 6).map((c) => (
+                      <CitationChip key={c.index} citation={c} />
+                    ))}
+                  </p>
+                )}
               </AIResponseCard>
               {citations.length > 0 && (
                 <Section title="Edges cited" count={citations.length}>

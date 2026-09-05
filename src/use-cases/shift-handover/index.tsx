@@ -33,6 +33,7 @@ import {
   useBackend,
 } from "../../backend";
 import { BackingServicesPanel } from "../../portal/BackingServicesPanel";
+import { MarkdownBody } from "../../portal/MarkdownBody";
 
 /**
  * Shift Handover Summary — reference application use case (enhanced).
@@ -235,23 +236,17 @@ export function ShiftHandoverUseCase() {
                   </Button>
                 }
               >
-                {draft.text.split("\n\n").map((para, i) => (
-                  <p key={i} style={{ marginTop: i === 0 ? 0 : undefined }}>
-                    {para}{" "}
+                <MarkdownBody>{draft.text}</MarkdownBody>
+                {draftCitations.length > 0 && (
+                  <p>
                     {draftCitations
-                      .filter(
-                        (c) =>
-                          draft.citationIdxs.includes(c.index) &&
-                          // Surface citations close to where they appear: each paragraph
-                          // gets up to 2 chips drawn from the prefix of the citation list.
-                          draftCitations.indexOf(c) >= i &&
-                          draftCitations.indexOf(c) < i + 2,
-                      )
+                      .filter((c) => draft.citationIdxs.includes(c.index))
+                      .slice(0, 4)
                       .map((c) => (
                         <CitationChip key={c.index} citation={c} />
                       ))}
                   </p>
-                ))}
+                )}
               </AIResponseCard>
 
               {draftCitations.length > 0 && (

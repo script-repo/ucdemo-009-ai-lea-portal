@@ -26,6 +26,7 @@ import {
   useBackend,
 } from "../../backend";
 import { BackingServicesPanel } from "../../portal/BackingServicesPanel";
+import { MarkdownBody } from "../../portal/MarkdownBody";
 
 const CATEGORIES: CallCategory[] = [
   "Domestic",
@@ -542,7 +543,7 @@ export function Transcript911UseCase() {
                 confidence={summary.confidence}
                 timestamp={summary.timestamp}
               >
-                <p style={{ margin: 0 }}>{summary.text}</p>
+                <MarkdownBody>{summary.text}</MarkdownBody>
               </AIResponseCard>
             </>
           )}

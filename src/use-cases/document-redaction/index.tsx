@@ -25,6 +25,7 @@ import {
   useBackend,
 } from "../../backend";
 import { BackingServicesPanel } from "../../portal/BackingServicesPanel";
+import { MarkdownBody } from "../../portal/MarkdownBody";
 
 type ViewMode = "highlights" | "redacted";
 type Decision = "accept" | "reject";
@@ -287,7 +288,7 @@ export function DocumentRedactionUseCase() {
               confidence={recommendation.confidence}
               timestamp={new Date()}
             >
-              <p style={{ margin: 0 }}>{recommendation.text}</p>
+              <MarkdownBody>{recommendation.text}</MarkdownBody>
             </AIResponseCard>
           )}
         </>

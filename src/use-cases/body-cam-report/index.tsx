@@ -25,6 +25,7 @@ import {
   useBackend,
 } from "../../backend";
 import { BackingServicesPanel } from "../../portal/BackingServicesPanel";
+import { MarkdownBody } from "../../portal/MarkdownBody";
 
 /**
  * UC1 — AI-Powered Report Writing from Body-Camera Audio.
@@ -297,12 +298,14 @@ export function BodyCamReportUseCase() {
                 <p style={{ marginTop: 0 }}>
                   <strong>{clip.draftReport.occurrenceType}</strong>
                 </p>
-                <p>
-                  {draft.text}{" "}
-                  {citations.slice(0, 3).map((c) => (
-                    <CitationChip key={c.index} citation={c} />
-                  ))}
-                </p>
+                <MarkdownBody>{draft.text}</MarkdownBody>
+                {citations.length > 0 && (
+                  <p>
+                    {citations.slice(0, 3).map((c) => (
+                      <CitationChip key={c.index} citation={c} />
+                    ))}
+                  </p>
+                )}
                 <p style={{ marginBottom: 0 }}>
                   <strong>Parties: </strong>
                   {clip.draftReport.parties.map((p, i) => (

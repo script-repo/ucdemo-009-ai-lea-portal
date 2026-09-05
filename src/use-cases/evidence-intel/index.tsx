@@ -26,6 +26,7 @@ import {
   type VectorMatch,
 } from "../../backend";
 import { BackingServicesPanel } from "../../portal/BackingServicesPanel";
+import { MarkdownBody } from "../../portal/MarkdownBody";
 
 /**
  * UC2 — Agentic Evidence Intelligence ("Ask Your Case File").
@@ -248,12 +249,14 @@ export function EvidenceIntelUseCase() {
                 confidence={response.confidence}
                 timestamp={response.timestamp}
               >
-                <p style={{ marginTop: 0 }}>
-                  {response.text}{" "}
-                  {citations.slice(0, 3).map((c) => (
-                    <CitationChip key={c.index} citation={c} />
-                  ))}
-                </p>
+                <MarkdownBody>{response.text}</MarkdownBody>
+                {citations.length > 0 && (
+                  <p>
+                    {citations.slice(0, 3).map((c) => (
+                      <CitationChip key={c.index} citation={c} />
+                    ))}
+                  </p>
+                )}
                 {response.confidence === "low" && (
                   <p
                     style={{
